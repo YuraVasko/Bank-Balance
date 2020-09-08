@@ -1,22 +1,24 @@
 ﻿using Interlogic.Bank.Balance.Events;
+using Interlogic.Bank.Balance.EventSource;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Interlogic.Bank.Balance.Services
 {
     public class BalanceService : IBalanceService
     {
-        private readonly List<BalanceChangedEvent> _balanceChangedEvents;
+        private readonly IEventStore _eventStore;
 
-        public BalanceService()
+        public BalanceService(IEventStore eventStore)
         {
-            _balanceChangedEvents = new List<BalanceChangedEvent>();
+            _eventStore = eventStore;
         }
 
         public int GetBalance()
         {
             int balance = 0;
-            _balanceChangedEvents.ForEach(e =>
+            var events = _eventStore.GetEvents().ToList();
+            events.ForEach(e =>
             {
                 if (e is MoneyInserted)
                     balance += e.Amount;
@@ -29,7 +31,7 @@ namespace Interlogic.Bank.Balance.Services
 
         public void InsertMoney(int amount)
         {
-            _balanceChangedEvents.Add(new MoneyInserted(amount));
+            _eventStore.AddEvent(new MoneyInserted(amount));
         }
 
         public void WithdrawMoney(int amount)
@@ -40,7 +42,7 @@ namespace Interlogic.Bank.Balance.Services
                 throw new ArgumentException(nameof(amount));
             }
 
-            _balanceChangedEvents.Add(new MoneyWithdrawed(amount));
+            _eventStore.AddEvent(new MoneyWithdrawed(amount));
         }
     }
 }
