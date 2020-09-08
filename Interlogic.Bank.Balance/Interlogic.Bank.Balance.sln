@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interlogic.Bank.Balance", "Interlogic.Bank.Balance\Interlogic.Bank.Balance.csproj", "{BE63FF23-55AE-45BA-A9F0-089C15B110EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE63FF23-55AE-45BA-A9F0-089C15B110EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE63FF23-55AE-45BA-A9F0-089C15B110EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE63FF23-55AE-45BA-A9F0-089C15B110EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE63FF23-55AE-45BA-A9F0-089C15B110EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDF93244-C6EC-4A55-8C84-B0E277819490}
+	EndGlobalSection
+EndGlobal
