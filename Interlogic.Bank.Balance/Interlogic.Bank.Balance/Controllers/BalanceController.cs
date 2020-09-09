@@ -8,9 +8,9 @@ namespace Interlogic.Bank.Balance.Controllers
     [ApiController]
     public class BalanceController : ControllerBase
     {
-        private readonly IEventStore _eventStore;
+        private readonly EventStore _eventStore;
 
-        public BalanceController(IEventStore eventStore)
+        public BalanceController(EventStore eventStore)
         {
             _eventStore = eventStore;
         }

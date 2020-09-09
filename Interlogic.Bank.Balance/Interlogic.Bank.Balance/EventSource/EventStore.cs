@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Interlogic.Bank.Balance.EventSource
 {
-    public class EventStore : IEventStore
+    public class EventStore
     {
         private readonly List<BalanceChangedEvent> _balanceChangedEvents;
 
