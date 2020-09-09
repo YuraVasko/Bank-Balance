@@ -1,9 +1,9 @@
-﻿using Interlogic.Bank.Balance.Events;
+﻿using Interlogic.Bank.Balance.AccountAgregate.Events;
 using System.Collections.Generic;
 
 namespace Interlogic.Bank.Balance.EventSource
 {
-    public class EventStore : IEventStore
+    public class EventStore
     {
         private readonly List<BalanceChangedEvent> _balanceChangedEvents;
 
@@ -12,11 +12,11 @@ namespace Interlogic.Bank.Balance.EventSource
             _balanceChangedEvents = new List<BalanceChangedEvent>();
         }
 
-        public void AddEvent(BalanceChangedEvent @event)
+        public void AddEvents(IReadOnlyList<BalanceChangedEvent> events)
         {
-            _balanceChangedEvents.Add(@event);
+            _balanceChangedEvents.AddRange(events);
         }
 
-        public IEnumerable<BalanceChangedEvent> GetEvents() => _balanceChangedEvents;
+        public IReadOnlyList<BalanceChangedEvent> GetEvents() => _balanceChangedEvents;
     }
 }

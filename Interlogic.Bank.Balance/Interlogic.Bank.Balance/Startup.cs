@@ -1,5 +1,4 @@
 using Interlogic.Bank.Balance.EventSource;
-using Interlogic.Bank.Balance.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +19,7 @@ namespace Interlogic.Bank.Balance
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IEventStore, EventStore>();
-            services.AddSingleton<IBalanceService, BalanceService>();
+            services.AddSingleton<EventStore>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

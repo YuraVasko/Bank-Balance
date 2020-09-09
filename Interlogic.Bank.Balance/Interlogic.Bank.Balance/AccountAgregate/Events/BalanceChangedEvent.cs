@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interlogic.Bank.Balance.Events
+namespace Interlogic.Bank.Balance.AccountAgregate.Events
 {
     public abstract class BalanceChangedEvent
     {
