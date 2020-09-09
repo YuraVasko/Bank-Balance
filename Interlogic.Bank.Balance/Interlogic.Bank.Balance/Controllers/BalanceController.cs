@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Interlogic.Bank.Balance.AccountAgregate;
 using Interlogic.Bank.Balance.EventSource;
-using Interlogic.Bank.Balance.Models;
+using Interlogic.Bank.Balance.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interlogic.Bank.Balance.Controllers

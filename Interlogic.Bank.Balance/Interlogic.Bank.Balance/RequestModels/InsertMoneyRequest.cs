@@ -1,4 +1,4 @@
-﻿namespace Interlogic.Bank.Balance.Models
+﻿namespace Interlogic.Bank.Balance.RequestModels
 {
     public class InsertMoneyRequest
     {
