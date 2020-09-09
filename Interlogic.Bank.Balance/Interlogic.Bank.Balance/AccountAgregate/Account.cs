@@ -16,11 +16,11 @@ namespace Interlogic.Bank.Balance.AccountAgregate
             _changes = new List<BalanceChangedEvent>();
             events.ToList().ForEach(e =>
             {
-                Apply((dynamic)e);
+                When((dynamic)e);
             });
         }
 
-        public void InsertMoney(int amount) => ProcessEvent(new MoneyTopUp(amount));
+        public void InsertMoney(int amount) => Apply(new MoneyTopUp(amount));
 
         public void WithdrawMoney(int amount)
         {
@@ -29,21 +29,21 @@ namespace Interlogic.Bank.Balance.AccountAgregate
                 throw new ArgumentException(nameof(amount));
             }
 
-            ProcessEvent(new MoneyWithdrawn(amount));
+            Apply(new MoneyWithdrawn(amount));
         }
 
-        private void ProcessEvent(BalanceChangedEvent @event)
+        private void Apply(BalanceChangedEvent @event)
         {
-            Apply((dynamic)@event);
+            When((dynamic)@event);
             _changes.Add(@event);
         }
 
-        private void Apply(MoneyTopUp e)
+        private void When(MoneyTopUp e)
         {
             Balance += e.Amount;
         }
 
-        private void Apply(MoneyWithdrawn e)
+        private void When(MoneyWithdrawn e)
         {
             Balance -= e.Amount;
         }
