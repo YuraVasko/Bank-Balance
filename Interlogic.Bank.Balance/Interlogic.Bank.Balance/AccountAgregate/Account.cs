@@ -20,6 +20,24 @@ namespace Interlogic.Bank.Balance.AccountAgregate
             });
         }
 
+        public void InsertMoney(int amount) => ProcessEvent(new MoneyTopUp(amount));
+
+        public void WithdrawMoney(int amount)
+        {
+            if (amount > Balance)
+            {
+                throw new ArgumentException(nameof(amount));
+            }
+
+            ProcessEvent(new MoneyWithdrawn(amount));
+        }
+
+        private void ProcessEvent(BalanceChangedEvent @event)
+        {
+            Apply((dynamic)@event);
+            _changes.Add(@event);
+        }
+
         private void Apply(MoneyTopUp e)
         {
             Balance += e.Amount;
@@ -29,27 +47,5 @@ namespace Interlogic.Bank.Balance.AccountAgregate
         {
             Balance -= e.Amount;
         }
-
-        public void InsertMoney(int amount)
-        {
-            Balance += amount;
-
-            var producedEvent = new MoneyTopUp(amount);
-            Apply(producedEvent);
-            _changes.Add(producedEvent);
-        }
-
-        public void WithdrawMoney(int amount)
-        {
-            if (amount > Balance)
-            {
-                throw new ArgumentException(nameof(amount));
-            }
-
-            var producedEvent = new MoneyWithdrawn(amount);
-            Apply(producedEvent);
-            _changes.Add(producedEvent);
-        }
-
     }
 }
