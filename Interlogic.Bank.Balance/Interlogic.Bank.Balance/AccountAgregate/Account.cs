@@ -1,4 +1,6 @@
-﻿using Interlogic.Bank.Balance.AccountAgregate.Events;
+﻿using CSharpFunctionalExtensions;
+using Interlogic.Bank.Balance.AccountAgregate.Errors;
+using Interlogic.Bank.Balance.AccountAgregate.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +22,21 @@ namespace Interlogic.Bank.Balance.AccountAgregate
             });
         }
 
-        public void InsertMoney(int amount) => Apply(new MoneyTopUp(amount));
+        public Result<int> InsertMoney(int amount)
+        {
+            Apply(new MoneyTopUp(amount));
+            return Result.Success(Balance);
+        }
 
-        public void WithdrawMoney(int amount)
+        public Result<int, AccountDomainError> WithdrawMoney(int amount)
         {
             if (amount > Balance)
             {
-                throw new ArgumentException(nameof(amount));
+                return Result.Failure<int, AccountDomainError>(new NegativeAccountBalanceError());
             }
 
             Apply(new MoneyWithdrawn(amount));
+            return Result.Success<int, AccountDomainError>(Balance);
         }
 
         private void Apply(BalanceChangedEvent @event)
