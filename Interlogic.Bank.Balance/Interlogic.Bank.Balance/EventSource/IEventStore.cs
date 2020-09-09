@@ -1,12 +1,12 @@
-﻿using Interlogic.Bank.Balance.Events;
+﻿using Interlogic.Bank.Balance.AccountAgregate.Events;
 using System.Collections.Generic;
 
 namespace Interlogic.Bank.Balance.EventSource
 {
     public interface IEventStore
     {
-        public void AddEvent(BalanceChangedEvent @event);
+        public void AddEvents(IReadOnlyList<BalanceChangedEvent> events);
 
-        public IEnumerable<BalanceChangedEvent> GetEvents();
+        public IReadOnlyList<BalanceChangedEvent> GetEvents();
     }
 }

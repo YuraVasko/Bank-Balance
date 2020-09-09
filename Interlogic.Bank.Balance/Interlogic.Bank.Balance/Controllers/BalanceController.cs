@@ -1,5 +1,6 @@
-﻿using Interlogic.Bank.Balance.Models;
-using Interlogic.Bank.Balance.Services;
+﻿using Interlogic.Bank.Balance.AccountAgregate;
+using Interlogic.Bank.Balance.EventSource;
+using Interlogic.Bank.Balance.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interlogic.Bank.Balance.Controllers
@@ -7,11 +8,11 @@ namespace Interlogic.Bank.Balance.Controllers
     [ApiController]
     public class BalanceController : ControllerBase
     {
-        private readonly IBalanceService _balanceService;
+        private readonly IEventStore _eventStore;
 
-        public BalanceController(IBalanceService balanceService)
+        public BalanceController(IEventStore eventStore)
         {
-            _balanceService = balanceService;
+            _eventStore = eventStore;
         }
 
         [HttpPost("/withdraw/money")]
@@ -19,7 +20,9 @@ namespace Interlogic.Bank.Balance.Controllers
         {
             try
             {
-                _balanceService.WithdrawMoney(request.Amount);
+                Account account = new Account(_eventStore.GetEvents());
+                account.WithdrawMoney(request.Amount);
+                _eventStore.AddEvents(account.Changes);
                 return Ok();
             }
             catch
@@ -31,15 +34,17 @@ namespace Interlogic.Bank.Balance.Controllers
         [HttpPost("/insert/money")]
         public IActionResult InsertMoney(InsertMoneyRequest request)
         {
-            _balanceService.InsertMoney(request.Amount);
+            Account account = new Account(_eventStore.GetEvents());
+            account.InsertMoney(request.Amount);
+            _eventStore.AddEvents(account.Changes);
             return Ok();
         }
 
         [HttpGet("/balance")]
         public IActionResult GetBalance()
         {
-            int balance = _balanceService.GetBalance();
-            return Ok(balance);
+            Account account = new Account(_eventStore.GetEvents());
+            return Ok(account.Balance);
         }
     }
 }

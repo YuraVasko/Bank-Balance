@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Interlogic.Bank.Balance.Events
+namespace Interlogic.Bank.Balance.AccountAgregate.Events
 {
     public abstract class BalanceChangedEvent
     {
         public Guid Id { get; set; }
-        
+
         public DateTime TransactionDateTime { get; set; }
 
         public int Amount { get; set; }
