@@ -10,10 +10,12 @@ namespace Interlogic.Bank.Balance.Controllers
     public class BalanceController : ControllerBase
     {
         private readonly EventStore _eventStore;
+        private readonly ReadModel _readModel;
 
-        public BalanceController(EventStore eventStore)
+        public BalanceController(EventStore eventStore, ReadModel readModel)
         {
             _eventStore = eventStore;
+            _readModel = readModel;
         }
 
         [HttpPost("/withdraw/money")]
@@ -21,7 +23,7 @@ namespace Interlogic.Bank.Balance.Controllers
         {
             Account account = new Account(_eventStore.GetEvents());
             var result = account.WithdrawMoney(request.Amount);
-            if(result.IsFailure)
+            if (result.IsFailure)
             {
                 return BadRequest(result.Error.ErrorMessage);
             }
@@ -42,8 +44,19 @@ namespace Interlogic.Bank.Balance.Controllers
         [HttpGet("/balance")]
         public IActionResult GetBalance()
         {
-            Account account = new Account(_eventStore.GetEvents());
-            return Ok(account.Balance);
+            return Ok(_readModel.Balance);
+        }
+
+        [HttpGet("/max/withdrawn/amount")]
+        public IActionResult GetMaxWithdrawnAmount()
+        {
+            return Ok(_readModel.MaxWithdrawnAmount);
+        }
+
+        [HttpGet("/operations/count")]
+        public IActionResult GetOperationsCount()
+        {
+            return Ok(_readModel.OperationsCount);
         }
     }
 }
