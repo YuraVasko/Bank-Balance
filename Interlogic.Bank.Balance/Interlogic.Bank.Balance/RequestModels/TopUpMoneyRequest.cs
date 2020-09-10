@@ -1,6 +1,6 @@
 ﻿namespace Interlogic.Bank.Balance.RequestModels
 {
-    public class InsertMoneyRequest
+    public class TopUpMoneyRequest
     {
         public int Amount { get; set; }
     }

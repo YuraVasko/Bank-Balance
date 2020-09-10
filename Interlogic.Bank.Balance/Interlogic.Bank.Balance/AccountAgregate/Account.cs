@@ -22,7 +22,7 @@ namespace Interlogic.Bank.Balance.AccountAgregate
             });
         }
 
-        public Result<int> InsertMoney(int amount)
+        public Result<int> TopUpMoney(int amount)
         {
             Apply(new MoneyTopUp(amount));
             return Result.Success(Balance);

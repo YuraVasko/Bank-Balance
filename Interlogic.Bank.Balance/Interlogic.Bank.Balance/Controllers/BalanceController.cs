@@ -32,11 +32,11 @@ namespace Interlogic.Bank.Balance.Controllers
             return Ok(result.Value);
         }
 
-        [HttpPost("/insert/money")]
-        public IActionResult InsertMoney(InsertMoneyRequest request)
+        [HttpPost("/top/up/money")]
+        public IActionResult TopUpMoney(TopUpMoneyRequest request)
         {
             Account account = new Account(_eventStore.GetEvents());
-            var result = account.InsertMoney(request.Amount);
+            var result = account.TopUpMoney(request.Amount);
             _eventStore.AddEvents(account.Changes);
             return Ok(result.Value);
         }
