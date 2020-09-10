@@ -4,8 +4,14 @@ Event source demo
 # Endpoint to get current balance
 GET: http://localhost:5000/balance
 
-# Endpoint to insert money
-POST: http://localhost:5000/insert/money
+# Endpoint to get operations count
+GET: http://localhost:5000/operations/count
+
+# Endpoint to get the largest amount of withdrawn money
+GET: http://localhost:5000/max/withdrawn/amount
+
+# Endpoint to top up money
+POST: http://localhost:5000/top/up/money
 Body: {
     "Amount" : 350
 }
