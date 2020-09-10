@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
 namespace Interlogic.Bank.Balance.AccountAgregate.Events
 {
-    public abstract class BalanceChangedEvent
+    public abstract class BalanceChangedEvent : INotification
     {
         public Guid Id { get; set; }
         

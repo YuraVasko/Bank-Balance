@@ -1,4 +1,5 @@
 using Interlogic.Bank.Balance.EventSource;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,9 @@ namespace Interlogic.Bank.Balance
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<ReadModel>();
             services.AddSingleton<EventStore>();
+            services.AddMediatR(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
