@@ -1,5 +1,5 @@
 # Bank-Balance
-Event source demo
+Simple API that demonstrates concepts of the DDD, CQRS, and Event sourcing
 
 # Endpoint to get current balance
 GET: http://localhost:5000/balance
